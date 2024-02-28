@@ -11,7 +11,7 @@ const ocGoals = [
 
 
 function exitChallenge() {
-  if (game.qolSM.abu === 1 && game.leastBoost <= 1.5) {
+  if (game.qolSM.abu === 1 && game.leastBoost <= 10.5) {
     refundAction();
   }
   if (inAnyChal()) {
@@ -26,7 +26,7 @@ function completeChallenge() {
     : challengeGoals[game.chal9==1?8:game.challenge - 1][game.chal9==1?game.chal9Comp:game.challengeCompletion[game.challenge - 1]]
   )) {
     if (game.chal8 === 1) {
-      if (game.leastBoost <= 15) {
+      if (game.leastBoost <= 22) {
         while (game.OP >= getChal8Goal(game.chal8Comp)) {
           game.chal8Comp += 1;
         }
@@ -38,7 +38,7 @@ function completeChallenge() {
       }
     } else if (game.chal9==1) {
       game.chal9Comp += 1;
-    } else if (game.leastBoost <= 15) {
+    } else if (game.leastBoost <= 22) {
       
         while (
 			game.challengeCompletion[game.challenge - 1] <= 2 && 
@@ -50,7 +50,7 @@ function completeChallenge() {
     } else {
       if(game.omegaChallenge != 1 || game.challenge2.includes(game.challenge)) game.challengeCompletion[game.challenge - 1] += 1;
     }
-    if (game.qolSM.abu === 1 && game.leastBoost <= 1.5) {
+    if (game.qolSM.abu === 1 && game.leastBoost <= 10.5) {
     refundAction();
     }
     resetEverythingBoostDoes();
@@ -72,7 +72,7 @@ function enterChallenge(c) {
 	}
     if (conf) {
       if (game.bConf.chalFB === 1) factorBoost();
-      if (game.qolSM.abu === 1 && game.leastBoost <= 1.5) {
+      if (game.qolSM.abu === 1 && game.leastBoost <= 10.5) {
         refundAction();
        }
       resetEverythingBoostDoes();

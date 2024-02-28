@@ -189,7 +189,7 @@ function resetEverythingCollapseDoes() {
   game.collapseUnlock = 1;
   game.collapseTime = 0;
   game.reachedBHO = 0;
-  if (game.leastBoost >= 1.5) {
+  if (game.leastBoost >= 10.5) {
   game.manifolds = 0;
   game.iups = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   game.dups = [0, 0, 0, 0, 0, 0, 0, 0, 0];

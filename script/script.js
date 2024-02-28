@@ -226,14 +226,14 @@ function loop(unadjusted, off = 0) {
     }
   }
 
-  if ((game.challenge>0||game.chal9==1) && !(game.chal8===1) && game.leastBoost <= 1.5 && game.qolSM.acc === 1) {
+  if ((game.challenge>0||game.chal9==1) && !(game.chal8===1) && game.leastBoost <= 10.5 && game.qolSM.acc === 1) {
     if ( // !(1) = false iirc
       game.OP >= challengeGoals[game.chal9==1?8:game.challenge - 1][Number(game.qolSM.nc8) - 1]
     ) {
       completeChallenge();
     }
   }
-  if ((game.chal8 === 1) && game.leastBoost <= 1.5 && game.qolSM.acc === 1) { // don't touch this one bc softlocks
+  if ((game.chal8 === 1) && game.leastBoost <= 10.5 && game.qolSM.acc === 1) { // don't touch this one bc softlocks
     if (game.OP >= getChal8Goal(Number(game.qolSM.c8) - 1)) {
       completeChallenge();
     }
@@ -365,7 +365,7 @@ function loop(unadjusted, off = 0) {
   changeDynamic(ms);
   if (game.dynamic < 0) game.dynamic = 0;
   if (ms > 0) {
-    if ((game.upgrades.includes(2) || game.leastBoost <= 1.5) && game.autoOn.max === 1) {
+    if ((game.upgrades.includes(2) || game.leastBoost <= 10.5) && game.autoOn.max === 1) {
       game.bAutoLoop.max += ms;
       if (game.bAutoLoop.max >= 1000 / buptotalMute) {
         game.bAutoLoop.max -= 1000 / buptotalMute;
@@ -386,7 +386,7 @@ function loop(unadjusted, off = 0) {
         if (
           game.OP + game.ord <= 1e265 &&
           totalMult <= 0.01 &&
-          game.leastBoost <= 1.5
+          game.leastBoost <= 10.5
         )
           infinity();
       }
@@ -406,7 +406,7 @@ function loop(unadjusted, off = 0) {
       increaseOrdTier2(bupCom);
     }
   }
-  if (game.upgrades.includes(7) || game.leastBoost <= 15) {
+  if (game.upgrades.includes(7) || game.leastBoost <= 22) {
     partOP += (ms / 1000) * calcOPPS();
     game.OP += Math.floor(partOP);
     partOP %= 1;
@@ -467,7 +467,7 @@ function loop(unadjusted, off = 0) {
     !game.upgrades.includes(10) &&
     game.cAutoOn.shift === 1 &&
     game.cAutoOn.boost === 1 &&
-    game.leastBoost <= 12 &&
+    game.leastBoost <= 18 &&
     (1/fbps)*getFBmult() <= ms * 0.022
   ) {
     factorBoostLoop +=
@@ -531,7 +531,7 @@ function render() {
   game.canInf =
     game.ord >= game.base ** 3 ||
     outSize >=
-      (game.leastBoost <= 22 ? (game.leastBoost <= 1.5 ? 10 : 100) : 10240) ||
+      (game.leastBoost <= 22 ? (game.leastBoost <= 10.5 ? 10 : 100) : 10240) ||
     outSize >= Infinity;
   let ordLevel=Number(getPsi(game.ord))
   if (ordLevel > game.bestPsi && ordLevel != 1) {
@@ -585,9 +585,9 @@ function render() {
       get("infinityButton2").innerHTML = `+${infinityButtonText}`;
   } else {
     get("infinityButton").innerHTML =
-      `Reach ${(game.leastBoost <= 22 ? (game.leastBoost <= 1.5 ? 10 : 100) : 10240)} to Markup`;
+      `Reach ${(game.leastBoost <= 22 ? (game.leastBoost <= 10.5 ? 10 : 100) : 10240)} to Markup`;
     get("infinityButton2").innerHTML =
-      `Reach ${(game.leastBoost <= 22 ? (game.leastBoost <= 1.5 ? 10 : 100) : 10240)} to Markup`;
+      `Reach ${(game.leastBoost <= 22 ? (game.leastBoost <= 10.5 ? 10 : 100) : 10240)} to Markup`;
   }
   get("challengeSubTab").style.display = game.upgrades.includes(4)
     ? "inline-block"
@@ -684,7 +684,7 @@ function render() {
     ).toFixed(3);
   get("maxAllAuto").innerHTML =
     "Your Max All Autobuyer is clicking the Max All button " +
-    ((game.upgrades.includes(2) || game.leastBoost <= 1.5) &&
+    ((game.upgrades.includes(2) || game.leastBoost <= 10.5) &&
     game.autoOn.max == 1
       ? beautify(buptotalMute)
       : 0) +
@@ -696,12 +696,12 @@ function render() {
       : 0) +
     " times per second, but only if you're past " +
     displayOrd(10 ** 270 * 4) +
-    (game.leastBoost <= 1.5
+    (game.leastBoost <= 10.5
       ? ". It also activates if your Tier 1 automation isn't autoclicking at least once a second"
       : "");
   get("autoMaxButton").textContent =
     "Max All Autobuyer: " +
-    (game.upgrades.includes(2) || game.leastBoost <= 1.5
+    (game.upgrades.includes(2) || game.leastBoost <= 10.5
       ? game.autoOn.max == 1
         ? "ON"
         : "OFF"
@@ -799,7 +799,7 @@ function render() {
           ? game.factors[i] + (game.upgrades.includes(11) ? 3 : 0)
           : 0)) *
         (game.upgrades.includes(1) && game.factors.length >= i + 1  && game.omegaChallenge != 2? double() : 1)) **
-      (game.leastBoost <= 20 && game.challengeCompletion[i] == 0
+      (game.leastBoost <= 24 && game.challengeCompletion[i] == 0
         ? 0.25
         : challengeCurve[game.challengeCompletion[i]]);
     if (
@@ -827,7 +827,7 @@ function render() {
   for (let i = 0; i < bupUpgradeCosts.length; i++) {
     bup(
       i + 1,
-      game.leastBoost <= 1.5 &&
+      game.leastBoost <= 10.5 &&
         game.qolSM.abu == 1 &&
         (game.qolSM.ig73 == 0 ||
           i + 1 != 10 ||
@@ -971,7 +971,7 @@ function render() {
   get("darkManifoldMaxMode").textContent =
     "Max Mode: " + (game.darkManifoldMax === 1 ? "ON" : "OFF");
   get("autoPrestigeSubTab").style.display =
-    game.leastBoost <= 12 ? "inline-block" : "none";
+    game.leastBoost <= 18 ? "inline-block" : "none";
   get("factorShiftAutoToggle").textContent =
     "Factor Shift Autoprestiger: " + (game.cAutoOn.shift === 1 ? "ON" : "OFF");
   get("factorShiftAutoText").textContent =
@@ -1041,9 +1041,9 @@ function render() {
     "<br>Cost: 65536 ℵ<sub>ω</sub>";
   updateFactors();
   get("chal8Incrementy").style.display =
-    game.leastBoost <= 1.5 ? "inline" : "none";
+    game.leastBoost <= 10.5 ? "inline" : "none";
   get("chal8IncrementyBoost").style.display =
-    game.leastBoost <= 1.5 ? "inline" : "none";
+    game.leastBoost <= 10.5 ? "inline" : "none";
   get("chal8IncrementyBoost").innerHTML =
     "<br>To Incrementy: x" +
     (getDynamicFactorCap() ** getChalIncrementyCurve(game.chal8Comp)).toFixed(
@@ -1060,16 +1060,16 @@ function render() {
     "Factor Boost if possible on entering a Challenge: " +
     (game.bConf.chalFB == 1 ? "ON" : "OFF");
   get("bottomBoosterUpgrades").style.display =
-    game.leastBoost <= 1.5 ? "table-row" : "none";
+    game.leastBoost <= 10.5 ? "table-row" : "none";
   get("bottomBoosterUpgrades2").style.display =
-    game.leastBoost <= 1.5 ? "table-row" : "none";
+    game.leastBoost <= 10.5 ? "table-row" : "none";
   get("distributeCard").style.display =
-    game.leastBoost <= 10 ? "block" : "none";
-  get("auprow3").style.display = game.leastBoost<=1.5 ? "table-row" : "none";
+    game.leastBoost <= 14 ? "block" : "none";
+  get("auprow3").style.display = game.leastBoost<=10.5 ? "table-row" : "none";
   get("auprow4").style.display = "none";
   get("autoPrestigeBuy").style.display =
-    game.leastBoost <= 10 ? "inline" : "none";
-  get("autoBup").style.display = game.leastBoost <= 1.5 ? "block" : "none";
+    game.leastBoost <= 14 ? "inline" : "none";
+  get("autoBup").style.display = game.leastBoost <= 10.5 ? "block" : "none";
   get("abu").textContent =
     "Autobuy Booster Upgrades: " + (game.qolSM.abu == 1 ? "ON" : "OFF");
   get("ig73").textContent =
@@ -1429,7 +1429,7 @@ function bup(x, spectate = 0) {
   if (!game.upgrades.includes(x)) {
     if (
       game.boosters >= Math.round(bupUpgradeCosts[x - 1]**(x%4==1?0.5**getOCComp(3):1)) &&
-      (game.leastBoost <= 1.5 || (!inChal(6))) && game.omegaChallenge !== 3
+      (game.leastBoost <= 10.5 || (!inChal(6))) && game.omegaChallenge !== 3
     ) {
       if (
         !(x == 12 && !(getSumOfChallenges() >= 7)) &&
@@ -1514,7 +1514,7 @@ function updateFactors() {
           (game.upgrades.includes(1) && game.omegaChallenge != 2 ? double() : 1)) +
         ' <button onclick="buyFactor(' +
         factorListCounter +
-        `)" class="infinityButton">${cost === Infinity
+        `)" class="infinityButton">${cost >= 1e257
 		? `Maxed!`
 		: `Increase Factor ${
 			factorListCounter + 1
@@ -1896,7 +1896,7 @@ function resetConf() {
 function maxFactors() {
   if (!inChal(2)) {
     if (game.factors.length >= 7 && game.OP >= 1e257) {
-      game.factors = [9, 8, 7, 4, 4, 3, 2];
+      game.factors = [9, 12, 11, 11, 12, 10, 8];
     } else {
       for (let i = 0; i < game.factors.length; i++)
         while (
@@ -1909,9 +1909,10 @@ function maxFactors() {
 }
 
 function buyFactor(n) {
+  let factorCost = Math.pow(10 ** (n + 1), Math.pow(factorCostExp[n], game.factors[n]));
   if (
-    game.OP >=
-      Math.pow(10 ** (n + 1), Math.pow(factorCostExp[n], game.factors[n])) &&
+    game.OP >= factorCost &&
+      factorCost < 1e257 &&
     (!inChal(2))
   ) {
     if (game.OP < 1e265)
@@ -1934,7 +1935,7 @@ function debug() {
   game.factorShifts = 7;
   game.base = 3;
   game.manualClicksLeft = 1000;
-  game.factors = [9, 8, 7, 4, 4, 3, 2];
+  game.factors = [9, 12, 11, 11, 12, 10, 8];
   game.infUnlock = 1;
   game.dynamic = 1;
   game.challenge = 0;
@@ -1955,7 +1956,7 @@ function revertToPreBooster() {
   game.factorShifts = 7;
   game.manualClicksLeft = 1000;
   game.base = 3;
-  game.factors = [9, 8, 7, 4, 4, 3, 2];
+  game.factors = [9, 12, 11, 11, 12, 10, 8];
   game.infUnlock = 1;
   game.dynamic = 1;
   game.challenge = 0;
@@ -1987,7 +1988,7 @@ function V(n, fb = 0) {
 }
 
 function toggleAutoMax() {
-  if (game.upgrades.includes(2) || game.leastBoost <= 1.5) {
+  if (game.upgrades.includes(2) || game.leastBoost <= 10.5) {
     game.autoOn.max = 1 - game.autoOn.max;
   }
   render();

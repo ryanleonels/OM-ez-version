@@ -199,7 +199,7 @@ function handlePost0211Saves() {
     game.iups.push(0);
   }
   if (game.version === 0.24) {
-    if (game.leastBoost <= 15) game.leastBoost = 15;
+    if (game.leastBoost <= 22) game.leastBoost = 22;
     if (!game.upgrades.includes(4)) {
       game.challengeCompletion[0] = 0;
       game.challengeCompletion[1] = 0;

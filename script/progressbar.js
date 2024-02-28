@@ -14,7 +14,7 @@ function project(x) {
         : game.factorBoosts + getFactorBulk() >= 25 && getFactorBulk() >= 1
         ? "You can't bulk past the BHO!"
         : "Next boost in bulk will take " +
-          ((game.upgrades.includes(2) || game.leastBoost <= 1.5) && (game.autoOn.max==1) &&
+          ((game.upgrades.includes(2) || game.leastBoost <= 10.5) && (game.autoOn.max==1) &&
           ((game.upgrades.includes(3)&&game.autoOn.inf==1) || game.leastBoost <= 1e10)
             ? time(
                 game.factorBoosts < 24
@@ -55,7 +55,7 @@ function challengeProject() {
     get("nextChalBulkTime").textContent="There are no more goals to be completed in this challenge"
   } else if (game.challenge == 2 && game.challengeCompletion[1] != 0) {
     percent = Math.min(1,game.OP/challengeGoals[1][game.challengeCompletion[1]])*100
-    let autoOn = (game.upgrades.includes(2) || game.leastBoost <= 1.5) && (game.autoOn.max==1) && ((game.upgrades.includes(3)&&game.autoOn.inf==1) || game.leastBoost <= 1e10)
+    let autoOn = (game.upgrades.includes(2) || game.leastBoost <= 10.5) && (game.autoOn.max==1) && ((game.upgrades.includes(3)&&game.autoOn.inf==1) || game.leastBoost <= 1e10)
     get("chalProg").style.width=percent + "%"
     get("chalProg").textContent=percent.toFixed(2) + "%"
     get("nextChalBulkTime").textContent=percent==100?"Goal reached!":"The next challenge completion will take " + time(((challengeGoals[1][game.challengeCompletion[1]]-game.OP)/(10**270))/buptotalMute/(0+autoOn)) + " assuming your Tier 2 speed stays constant"

@@ -180,7 +180,7 @@ function getIncrementyRate(x) {
       (game.iups[7] === 1 ? getDynamicFactorCap() : 1))
     .times(game.aups.includes(5) ? game.assCard[2].mult : 1)
     .times(
-      game.leastBoost <= 1.5
+      game.leastBoost <= 10.5
         ? getDynamicFactorCap() ** getChalIncrementyCurve(game.chal8Comp)
         : 1
     );
@@ -215,7 +215,7 @@ function calcBupTotalMultWOFactor() {
 function getBoostFromBoosters(check = 0) {
   return game.upgrades.includes(6) || check === 1
     ? Math.max(
-        game.leastBoost <= 12 ? 10 + 9 * Math.max(game.boosters, 0) ** 0.5 : 0,
+        game.leastBoost <= 18 ? 10 + 9 * Math.max(game.boosters, 0) ** 0.5 : 0,
         10 + Math.max(game.boosters, 0) ** 0.9
       )
     : 1;
@@ -223,7 +223,7 @@ function getBoostFromBoosters(check = 0) {
 function calcFactorShiftTime(n) {
   return Math.max(
     1 / game.shiftAuto.toNumber(),Math.min(
-    (100 / calcOPPS(n - 1)) * (game.leastBoost <= 1.5 ? 1 : 1) +
+    (100 / calcOPPS(n - 1)) * (game.leastBoost <= 10.5 ? 1 : 1) +
       (calcBase(n-1)==3?3**27:OPtoOrd(getFSCost(n-1),calcBase(n-1))) /
         (calcTotalMultWOFactor() *
           ((game.upgrades.includes(1) && game.omegaChallenge != 2 ? double() : 1) *
@@ -246,7 +246,7 @@ function calcOPPS(fs = game.factorShifts) {
       ? 5 ** (inChal(1) ? 4 : 1)
       : 1) *
     game.assCard[2].mult.toNumber() *
-    ((game.upgrades.includes(7) ? 20 : 0) + (game.leastBoost <= 15 ? 15 : 0)) *
+    ((game.upgrades.includes(7) ? 20 : 0) + (game.leastBoost <= 22 ? 15 : 0)) *
     (game.upgrades.includes(19) && calcBase(fs) <= 5.5 ? 666666 : 1) *
     (game.sfBought.includes(42) ? 4 : 1) *
     Math.max(getSumOC(),1)
@@ -271,7 +271,7 @@ function calcFactorBoostTime() {
     fbt += calcFactorShiftTime(i);
     if (i !== 8)
       bfact *=
-        (([9, 8, 7, 4, 4, 3, 2][i - 1] +
+        (([9, 12, 11, 11, 12, 10, 8][i - 1] +
           1 +
           (game.upgrades.includes(11) ? 3 : 0)) *
           (game.upgrades.includes(1) && game.omegaChallenge != 2 ? double() : 1)) **
@@ -294,7 +294,7 @@ function calcFactorBoostTime() {
 }
 
 function getChal8Goal(x) {
-  return x >= 3 && game.leastBoost >= 1.5
+  return x >= 3 && game.leastBoost >= 10.5
     ? Infinity
     :2 ** ((x * (x + 1)) / 2) * 3e10 / (game.sfBought.includes(63)?game.assCard[0].mult.toNumber():1);
 }
@@ -338,7 +338,7 @@ function getFBps() {
     game.cAutoOn.shift === 1 &&
     game.cAutoOn.boost === 1 &&
     game.autoOn.max ===1 &&
-    game.leastBoost <= 12
+    game.leastBoost <= 18
   ) {
     return 1 / calcFactorBoostTime();
   }
