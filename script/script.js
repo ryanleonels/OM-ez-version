@@ -17,13 +17,13 @@ let clickCoolDown = 0;
 let infinityButtonText = 0;
 let game;
 const factorShiftCosts = [
+  10,
   100,
-  500,
-  2000,
+  1000,
   10000,
+  1e5,
   1e10,
-  1e20,
-  1e32,
+  1e16,
   1.095e272,
   Infinity
 ];
@@ -138,9 +138,9 @@ function increment(manmade = 0) {
     )
       game.manualClicksLeft--;
     if (game.ord % game.base === game.base - 1) {
-      game.over++;
+      game.over+=100;
     } else {
-      game.ord++;
+      game.ord+=100;
     }
     clickCoolDown = 2;
   }
